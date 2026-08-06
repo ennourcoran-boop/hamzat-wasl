@@ -1,27 +1,18 @@
 {
   "name": "برنامج همزة وصل — مؤسسة النور للتربية والتعليم",
   "short_name": "همزة وصل",
-  "description": "منصة تواصل مؤسسة النور للتربية والتعليم مع أولياء الأمور — النسخة_01_2026",
+  "description": "قناة تواصل مؤسسة النور للتربية والتعليم مع أولياء أمور الطالبات",
   "lang": "ar",
   "dir": "rtl",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#083832",
-  "theme_color": "#0B4F46",
+  "background_color": "#0d4f4a",
+  "theme_color": "#0d4f4a",
   "icons": [
-    {
-      "src": "icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
-    }
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
   ]
 }

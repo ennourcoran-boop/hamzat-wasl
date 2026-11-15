@@ -52,6 +52,8 @@
   #banner .txt { flex: 1; min-width: 0; }
   #banner h2 { margin: 0; font-size: 1.02rem; font-weight: 800; line-height: 1.5; }
   #banner p { margin: 2px 0 0; font-size: .92rem; line-height: 1.7; color: var(--muted); }
+  #bannerDetail { margin-top: 6px; font-size: .78rem; color: var(--muted); direction: ltr; text-align: left; overflow-wrap: anywhere; }
+  #bannerDetail[hidden] { display: none; }
   #bannerBtn {
     margin-top: 10px; min-height: 44px; padding: 6px 18px; border: 0; border-radius: 12px;
     background: var(--btn-bg); color: var(--btn-ink); font: inherit; font-weight: 800; cursor: pointer;
@@ -86,6 +88,7 @@
   <div class="txt">
     <h2 id="bannerTitle"></h2>
     <p id="bannerText"></p>
+    <p id="bannerDetail" hidden></p>
     <button id="bannerBtn" type="button" hidden></button>
   </div>
   <button id="bannerClose" type="button" aria-label="إخفاء">×</button>
@@ -107,7 +110,7 @@
   let inner = null, innerOrigin = '';  // نافذة البرنامج داخل الإطار، تُعرف من أول رسالة يرسلها
   let parentIn = false;                // هل ولي مسجّل دخوله الآن؟
   let subId = null;                    // رقم اشتراك هذا الهاتف في الإشعارات
-  let OS = null, installEvt = null, state = null, pushFailed = false;
+  let OS = null, installEvt = null, state = null, pushFailed = '';  // pushFailed: سبب تعذر التشغيل كما أعاده ون سيجنال
   let dismissed = sessionStorage.getItem('nourBannerHidden') === '1';
 
   /* ---------- تحميل البرنامج ---------- */
@@ -189,7 +192,7 @@
     } catch (e) {
       // غالباً: رابط الموقع في إعدادات ون سيجنال لا يطابق رابط هذه الصفحة
       console.error('OneSignal init failed', e);
-      pushFailed = true;
+      pushFailed = String((e && e.message) || e || 'unknown error');
       render();
       return;
     }
@@ -239,6 +242,9 @@
     $('bannerText').textContent = text;
     $('bannerBtn').textContent = action;
     $('bannerBtn').hidden = !action;
+    // السبب التقني يظهر عند التعذر فقط، ليُنقل كما هو إلى من يصلح الإعداد
+    $('bannerDetail').textContent = state === 'failed' ? pushFailed : '';
+    $('bannerDetail').hidden = state !== 'failed';
   }
 
   $('bannerBtn').addEventListener('click', async () => {
